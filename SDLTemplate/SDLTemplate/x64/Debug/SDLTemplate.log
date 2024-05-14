@@ -1,2 +1,18 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Msbuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(494,5): warning MSB8003: The VCToolsInstallDir property is not defined. Some build tools may not be found.
-TRACKER : error TRK0005: Failed to locate: "CL.exe". The system cannot find the file specified.
+﻿  draw.cpp
+  GameObject.cpp
+  GameScene.cpp
+  init.cpp
+  input.cpp
+  main.cpp
+G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\main.cpp(7,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\main.cpp(53,12): warning C4244: '=': conversion from 'float' to 'long', possible loss of data
+G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\main.cpp(68,21): warning C4305: '+=': truncation from 'double' to 'float'
+  Scene.cpp
+  SoundManager.cpp
+  text.cpp
+G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\text.cpp(43,30): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  util.cpp
+G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\util.cpp(37,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\util.cpp(40,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
+  SDLTemplate.vcxproj -> G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\x64\Debug\SDL-Template.exe
