@@ -1,18 +1,2 @@
-﻿  draw.cpp
-  GameObject.cpp
-  GameScene.cpp
-  init.cpp
-  input.cpp
-  main.cpp
-G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\main.cpp(7,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\main.cpp(53,12): warning C4244: '=': conversion from 'float' to 'long', possible loss of data
-G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\main.cpp(68,21): warning C4305: '+=': truncation from 'double' to 'float'
-  Scene.cpp
-  SoundManager.cpp
-  text.cpp
-G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\text.cpp(43,30): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  util.cpp
-G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\util.cpp(37,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\util.cpp(40,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  Generating Code...
+﻿  Player.cpp
   SDLTemplate.vcxproj -> G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\x64\Debug\SDL-Template.exe
