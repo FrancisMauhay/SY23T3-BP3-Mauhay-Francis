@@ -2,6 +2,15 @@
 #include "Scene.h"
 #include <algorithm>
 
+Player::~Player()
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		delete bullets[i];
+	}
+	bullets.clear();
+}
+
 void Player::start()
 {
 	texture = loadTexture("gfx/player.png");

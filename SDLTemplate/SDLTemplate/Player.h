@@ -8,10 +8,10 @@
 
 using namespace std;
 
-class Player :
-    public GameObject
+class Player : public GameObject
 {
 public:
+    ~Player();
     void start();
     void update();
     void draw();
