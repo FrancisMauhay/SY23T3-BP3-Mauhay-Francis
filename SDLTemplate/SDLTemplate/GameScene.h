@@ -2,6 +2,10 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "Player.h"
+#include "Enemy.h"
+#include <vector>
+
+using namespace std;
 
 class GameScene : public Scene
 {
@@ -11,7 +15,13 @@ public:
 	void start();
 	void draw();
 	void update();
+	void spawn();
 private:
 	Player* player;
+	vector<Enemy*> spawnedEnemies;
+
+	float enemySpawnTime;
+	float enemyCurrentSpawnTime;
+	int wave;
 };
 

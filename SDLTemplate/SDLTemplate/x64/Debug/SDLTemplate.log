@@ -1,14 +1,3 @@
 ﻿  GameScene.cpp
-  Player.cpp
-G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\Player.cpp(103,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\Player.cpp(103,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\Player.cpp(114,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\Player.cpp(114,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\Player.cpp(115,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\Player.cpp(115,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  main.cpp
-G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\main.cpp(7,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\main.cpp(53,12): warning C4244: '=': conversion from 'float' to 'long', possible loss of data
-G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\main.cpp(68,21): warning C4305: '+=': truncation from 'double' to 'float'
-  Generating Code...
+G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\GameScene.cpp(51,8): warning C4553: '==': result of expression not used; did you intend '='?
   SDLTemplate.vcxproj -> G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\x64\Debug\SDL-Template.exe

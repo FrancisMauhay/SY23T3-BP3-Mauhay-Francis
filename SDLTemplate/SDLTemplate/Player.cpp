@@ -109,7 +109,6 @@ void Player::shoot()
 	Bullet* bullet = new Bullet(x + width ,y - 2 + height/2 ,1,0,10);
 	bullets.push_back(bullet);
 	getScene()->addGameObject(bullet);
-	bullet->start();
 
 	currentReloadTime = reloadTime;
 }
@@ -123,8 +122,16 @@ void Player::specialShoot()
 	getScene()->addGameObject(specialBullet2);
 	bullets.push_back(specialBullet1);
 	bullets.push_back(specialBullet2);
-	specialBullet1->start();
-	specialBullet2->start();
 
 	currentSpecialReloadTime = specialReloadTime;
+}
+
+int Player::getPositionX()
+{
+	return x;
+}
+
+int Player::getPositionY()
+{
+	return y;
 }
