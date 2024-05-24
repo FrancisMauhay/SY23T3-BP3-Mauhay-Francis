@@ -22,9 +22,11 @@ void Enemy::start()
 	reloadTime = 60;
 	directionChangeTime = (rand() % 300) + 180;
 	currentDirectionChangeTime = 0;
+	deleteObj = false;
 	
 	SDL_QueryTexture(texture, NULL, NULL, &width, &height);
 	fire = SoundManager::loadSound("sound/334227__jradcoolness__laser.ogg");
+	fire->volume = 50;
 }
 
 void Enemy::update()
@@ -53,7 +55,7 @@ void Enemy::update()
 		calcSlope(playerTarget->getPositionX(), playerTarget->getPositionY(), x, y, &dx, &dy);
 
 		SoundManager::playSound(fire);
-		Bullet* bullet = new Bullet(x + width, y - 2 + height / 2, dx, dy, 10);
+		Bullet* bullet = new Bullet(x + width, y - 2 + height / 2, dx, dy, 10, Side::ENEMY_SIDE);
 		bullets.push_back(bullet);
 		getScene()->addGameObject(bullet);
 
@@ -89,12 +91,32 @@ void Enemy::setPos(int posX, int posY)
 	this->y = posY;
 }
 
-float Enemy::getPosX()
+void Enemy::deleteMark()
+{
+	deleteObj = true;
+}
+
+bool Enemy::deletion()
+{
+	return deleteObj;
+}
+
+int Enemy::getPositionX()
 {
 	return x;
 }
 
-float Enemy::getPosY()
+int Enemy::getPositionY()
 {
 	return y;
+}
+
+int Enemy::getWidth()
+{
+	return width;
+}
+
+int Enemy::getHeight()
+{
+	return height;
 }

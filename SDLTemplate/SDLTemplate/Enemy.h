@@ -20,8 +20,12 @@ public:
 	void draw();
     void setPlayerTarget(Player* player);
     void setPos(int posX,int posY);
-    float getPosX();
-    float getPosY();
+    void deleteMark();
+    bool deletion();
+    int getPositionX();
+    int getPositionY();
+    int getWidth();
+    int getHeight();
 private:
     SDL_Texture* texture;
     Mix_Chunk* fire;
@@ -37,6 +41,7 @@ private:
     float currentReloadTime;
     float directionChangeTime;
     float currentDirectionChangeTime;
+    bool deleteObj;
     vector<Bullet*> bullets;
 
 };

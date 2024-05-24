@@ -19,9 +19,15 @@ public:
     void move();
     void shoot();
     void specialShoot();
-
+    void bulletDelete();
     int getPositionX();
     int getPositionY();
+    int getWidth();
+    int getHeight();
+    bool isAlive();
+    void death();
+    void respawn();
+    void reset();
 private:
     SDL_Texture* texture;
     Mix_Chunk* fire;
@@ -34,6 +40,9 @@ private:
     float currentReloadTime;
     float specialReloadTime;
     float currentSpecialReloadTime;
+    float playerRespawnTime;
+    float currentPlayerRespawnTime;
+    bool alive;
     vector<Bullet*> bullets;
 };
 

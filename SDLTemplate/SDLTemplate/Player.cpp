@@ -23,12 +23,22 @@ void Player::start()
 	reloadTime = 20;
 	currentSpecialReloadTime = 0;
 	specialReloadTime = 60;
+	currentPlayerRespawnTime = 300;
+	playerRespawnTime = 300;
+	alive = true;
 	SDL_QueryTexture(texture, NULL, NULL, &width, &height);
 	fire = SoundManager::loadSound("sound/334227__jradcoolness__laser.ogg");
 }
 
 void Player::update()
 {
+	bulletDelete();
+
+	if (!alive)
+	{
+		respawn();
+		return;
+	}
 	setSpeed();
 	move();
 
@@ -51,23 +61,11 @@ void Player::update()
 	{
 		specialShoot();
 	}
-
-	// had asked chatgpt what is a more optimal way of memory management and it suggested using remove_if
-	auto it = std::remove_if(bullets.begin(), bullets.end(), [](Bullet* bullet) 
-		{
-		if (bullet->getPositionX() > SCREEN_WIDTH) 
-		{
-			delete bullet;
-			return true;
-		}
-		return false;
-		});
-
-	bullets.erase(it, bullets.end());
 }
 
 void Player::draw()
 {
+	if (!alive) return;
 	blit(texture, x, y);
 }
 
@@ -106,7 +104,7 @@ void Player::move()
 void Player::shoot()
 {
 	SoundManager::playSound(fire);
-	Bullet* bullet = new Bullet(x + width ,y - 2 + height/2 ,1,0,10);
+	Bullet* bullet = new Bullet(x + width ,y - 2 + height/2 ,1,0,10, Side::PLAYER_SIDE);
 	bullets.push_back(bullet);
 	getScene()->addGameObject(bullet);
 
@@ -116,14 +114,30 @@ void Player::shoot()
 void Player::specialShoot()
 {
 	SoundManager::playSound(fire);
-	Bullet* specialBullet1 = new Bullet(x, y + 3, 1, 0, 10);
-	Bullet* specialBullet2 = new Bullet(x, y - 2 + height, 1, 0, 10);
+	Bullet* specialBullet1 = new Bullet(x, y + 3, 1, 0, 10, Side::PLAYER_SIDE);
+	Bullet* specialBullet2 = new Bullet(x, y - 2 + height, 1, 0, 10, Side::PLAYER_SIDE);
 	getScene()->addGameObject(specialBullet1);
 	getScene()->addGameObject(specialBullet2);
 	bullets.push_back(specialBullet1);
 	bullets.push_back(specialBullet2);
 
 	currentSpecialReloadTime = specialReloadTime;
+}
+
+void Player::bulletDelete()
+{
+	// had asked chatgpt what is a more optimal way of memory management and it suggested using remove_if
+	auto it = std::remove_if(bullets.begin(), bullets.end(), [](Bullet* bullet)
+		{
+			if (bullet->delBul() || bullet->getPositionX() > SCREEN_WIDTH)
+			{
+				delete bullet;
+				return true;
+			}
+			return false;
+		});
+
+	bullets.erase(it, bullets.end());
 }
 
 int Player::getPositionX()
@@ -134,4 +148,44 @@ int Player::getPositionX()
 int Player::getPositionY()
 {
 	return y;
+}
+
+int Player::getWidth()
+{
+	return width;
+}
+
+int Player::getHeight()
+{
+	return height;
+}
+
+bool Player::isAlive()
+{
+	return alive;
+}
+
+void Player::death()
+{
+	alive = false;
+}
+
+void Player::respawn()
+{
+	if (currentPlayerRespawnTime > 0 && !alive)
+	{
+		currentPlayerRespawnTime--;
+	}
+	if (currentPlayerRespawnTime == 0 && !alive)
+	{
+		alive = true;
+		reset();
+		currentPlayerRespawnTime = playerRespawnTime;
+	}
+}
+
+void Player::reset()
+{
+	x = 100;
+	y = 300;
 }

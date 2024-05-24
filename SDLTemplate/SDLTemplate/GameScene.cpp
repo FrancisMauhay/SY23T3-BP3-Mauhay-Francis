@@ -48,20 +48,11 @@ void GameScene::update()
 
 	if (wave == 10)
 	{
-		wave == 3;
+		wave = 3;
 	}
 	
-	auto it = std::remove_if(spawnedEnemies.begin(), spawnedEnemies.end(), [](Enemy* enemy)
-		{
-			if (enemy->getPosX() < 0)
-			{
-				delete enemy;
-				return true;
-			}
-			return false;
-		});
-
-	spawnedEnemies.erase(it, spawnedEnemies.end());
+	collisionCheck();
+	enemyDelete();
 }
 
 void GameScene::spawn()
@@ -74,4 +65,62 @@ void GameScene::spawn()
 		enemy->setPos(SCREEN_WIDTH + 150, 300 + (rand() % 300));
 		spawnedEnemies.push_back(enemy);
 	}
+}
+
+void GameScene::collisionCheck()
+{
+	for (int i = 0; i < objects.size(); i++)
+	{
+		Bullet* bullet = dynamic_cast<Bullet*>(objects[i]);
+
+		if (bullet != NULL)
+		{
+			if (bullet->getSide() == Side::ENEMY_SIDE)
+			{
+				int collision = checkCollision(
+					player->getPositionX(), player->getPositionY(), player->getWidth(), player->getHeight(),
+					bullet->getPositionX(), bullet->getPositionY(), bullet->getWidth(), bullet->getHeight()
+				);
+
+				if (collision == 1)
+				{
+					player->death();
+					break;
+				}
+			}
+			else if (bullet->getSide() == Side::PLAYER_SIDE)
+			{
+				for (int i = 0; i < spawnedEnemies.size(); i++)
+				{
+					Enemy* currentEnemy = spawnedEnemies[i];
+
+					int collision = checkCollision(
+						currentEnemy->getPositionX(), currentEnemy->getPositionY(), currentEnemy->getWidth(), currentEnemy->getHeight(),
+						bullet->getPositionX(), bullet->getPositionY(), bullet->getWidth(), bullet->getHeight()
+					);
+
+					if (collision == 1)
+					{
+						currentEnemy->deleteMark();
+						bullet->deleteBulletFunc();
+					}
+				}
+			}
+		}
+	}
+}
+
+void GameScene::enemyDelete()
+{
+	auto it = std::remove_if(spawnedEnemies.begin(), spawnedEnemies.end(), [](Enemy* enemy)
+		{
+			if (enemy->deletion() || enemy->getPositionX() < 0)
+			{
+				delete enemy;
+				return true;
+			}
+			return false;
+		});
+
+	spawnedEnemies.erase(it, spawnedEnemies.end());
 }

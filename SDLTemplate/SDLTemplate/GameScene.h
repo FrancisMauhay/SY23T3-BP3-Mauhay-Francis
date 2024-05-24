@@ -16,6 +16,8 @@ public:
 	void draw();
 	void update();
 	void spawn();
+	void collisionCheck();
+	void enemyDelete();
 private:
 	Player* player;
 	vector<Enemy*> spawnedEnemies;
