@@ -4,6 +4,8 @@
 GameScene::GameScene()
 {
 	// Register and add game objects on constructor
+	background = new (Background);
+	this->addGameObject(background);
 	player = new Player();
 	this->addGameObject(player);
 	
@@ -20,7 +22,8 @@ void GameScene::start()
 {
 	Scene::start();
 	// Initialize any scene logic here
-
+	SoundManager::loadMusic("music/Mercury.ogg");
+	SoundManager::playMusic(1);
 	wave = 1;
 }
 
@@ -53,6 +56,7 @@ void GameScene::update()
 	
 	collisionCheck();
 	enemyDelete();
+	targetCheck();
 }
 
 void GameScene::spawn()
@@ -123,4 +127,21 @@ void GameScene::enemyDelete()
 		});
 
 	spawnedEnemies.erase(it, spawnedEnemies.end());
+}
+
+void GameScene::targetCheck()
+{
+	for (int i = 0; i < spawnedEnemies.size(); i++)
+	{
+		Enemy* currentEnemy = spawnedEnemies[i];
+
+		if (player->isAlive() != true)
+		{
+			currentEnemy->targetDeath();
+		}
+		else if (player->isAlive() == true)
+		{
+			currentEnemy->resumeShoot();
+		}
+	}
 }

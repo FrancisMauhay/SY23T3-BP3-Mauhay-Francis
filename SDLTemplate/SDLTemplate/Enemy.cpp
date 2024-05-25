@@ -23,6 +23,7 @@ void Enemy::start()
 	directionChangeTime = (rand() % 300) + 180;
 	currentDirectionChangeTime = 0;
 	deleteObj = false;
+	targetAlive = true;
 	
 	SDL_QueryTexture(texture, NULL, NULL, &width, &height);
 	fire = SoundManager::loadSound("sound/334227__jradcoolness__laser.ogg");
@@ -38,7 +39,7 @@ void Enemy::update()
 	{
 		currentDirectionChangeTime--;
 	}
-	if (currentDirectionChangeTime == 0)
+	if (currentDirectionChangeTime == 0 || y > SCREEN_HEIGHT || y < 0)
 	{
 		directionY = -directionY;
 		currentDirectionChangeTime = directionChangeTime;
@@ -49,6 +50,7 @@ void Enemy::update()
 	}
 	if (currentReloadTime == 0)
 	{
+		if (!targetAlive) return;
 		float dx = -1;
 		float dy = 0;
 
@@ -94,6 +96,21 @@ void Enemy::setPos(int posX, int posY)
 void Enemy::deleteMark()
 {
 	deleteObj = true;
+}
+
+void Enemy::targetDeath()
+{
+	targetAlive = false;
+}
+
+void Enemy::resumeShoot()
+{
+	targetAlive = true;
+}
+
+bool Enemy::targetAliveFunc()
+{
+	return targetAlive;
 }
 
 bool Enemy::deletion()

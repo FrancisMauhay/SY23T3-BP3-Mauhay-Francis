@@ -21,6 +21,9 @@ public:
     void setPlayerTarget(Player* player);
     void setPos(int posX,int posY);
     void deleteMark();
+    void targetDeath();
+    void resumeShoot();
+    bool targetAliveFunc();
     bool deletion();
     int getPositionX();
     int getPositionY();
@@ -42,6 +45,7 @@ private:
     float directionChangeTime;
     float currentDirectionChangeTime;
     bool deleteObj;
+    bool targetAlive;
     vector<Bullet*> bullets;
 
 };
