@@ -5,9 +5,13 @@ GameScene::GameScene()
 {
 	// Register and add game objects on constructor
 	background = new (Background);
+	background2 = new (Background);
+	this->addGameObject(background2);
 	this->addGameObject(background);
 	player = new Player();
 	this->addGameObject(player);
+
+	background2->setPos(SCREEN_WIDTH + 1600, 0);
 	
 	enemyCurrentSpawnTime = 300;
 	enemySpawnTime = 300;

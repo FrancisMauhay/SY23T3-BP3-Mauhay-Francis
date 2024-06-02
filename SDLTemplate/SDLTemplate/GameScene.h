@@ -23,6 +23,7 @@ public:
 private:
 	Player* player;
 	Background* background;
+	Background* background2;
 	Mix_Chunk* bgMusic;
 	vector<Enemy*> spawnedEnemies;
 
