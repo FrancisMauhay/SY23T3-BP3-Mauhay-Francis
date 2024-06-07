@@ -1,2 +1,10 @@
 ﻿  GameScene.cpp
+G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\GameScene.cpp(104,23): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\GameScene.cpp(105,23): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\GameScene.cpp(107,55): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\GameScene.cpp(107,43): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\GameScene.cpp(126,24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\GameScene.cpp(127,24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\GameScene.cpp(129,56): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\SDLTemplate\GameScene.cpp(129,44): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   SDLTemplate.vcxproj -> G:\CSB\Term 9\BASPRG3\SY23T3-BP3-Mauhay-Francis\SDLTemplate\x64\Debug\SDL-Template.exe

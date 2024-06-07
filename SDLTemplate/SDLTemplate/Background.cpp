@@ -6,10 +6,10 @@ void Background::start()
 	bgTexture2 = loadTexture("gfx/background.png");
 	x = 0;
 	y = 0;
-	x2 = 600;
+	x2 = SCREEN_WIDTH;
 	y2 = 0;
 	speed = 10;
-	scale = 3;
+	scale = 5;
 	SDL_QueryTexture(bgTexture, NULL, NULL, &width, &height);
 	SDL_QueryTexture(bgTexture2, NULL, NULL, &width, &height);
 }

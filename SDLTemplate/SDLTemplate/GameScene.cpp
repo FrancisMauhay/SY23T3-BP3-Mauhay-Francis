@@ -15,6 +15,7 @@ GameScene::GameScene()
 	
 	enemyCurrentSpawnTime = 300;
 	enemySpawnTime = 300;
+	points = 0;
 }
 
 GameScene::~GameScene()
@@ -29,11 +30,19 @@ void GameScene::start()
 	SoundManager::loadMusic("music/Mercury.ogg");
 	SoundManager::playMusic(1);
 	wave = 1;
+	initFonts();
 }
 
 void GameScene::draw()
 {
 	Scene::draw();
+	drawText(110, 20, 255, 255, 255, TEXT_CENTER, "POINTS: %03d", points );
+
+	if (player->isAlive() == false)
+	{
+		drawText(SCREEN_WIDTH / 2, 600, 255, 255, 255, TEXT_CENTER, "GAME OVER!");
+		points = 0;
+	}
 }
 
 void GameScene::update()
@@ -92,6 +101,11 @@ void GameScene::collisionCheck()
 
 				if (collision == 1)
 				{
+					float explosionX = player->getPositionX();
+					float explosionY = player->getPositionY();
+
+					Explosion* explosion = new Explosion(explosionX, explosionY);
+					this->addGameObject(explosion);
 					player->death();
 					break;
 				}
@@ -109,8 +123,14 @@ void GameScene::collisionCheck()
 
 					if (collision == 1)
 					{
+						float explosionX = currentEnemy->getPositionX();
+						float explosionY = currentEnemy->getPositionY();
+
+						Explosion* explosion = new Explosion(explosionX, explosionY);
+						this->addGameObject(explosion);
 						currentEnemy->deleteMark();
 						bullet->deleteBulletFunc();
+						points++;
 					}
 				}
 			}

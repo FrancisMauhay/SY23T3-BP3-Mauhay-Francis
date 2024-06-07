@@ -4,6 +4,8 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Background.h"
+#include "Explosion.h"
+#include "text.h"
 #include <vector>
 
 using namespace std;
@@ -31,5 +33,6 @@ private:
 	float enemyCurrentSpawnTime;
 	bool gameOn;
 	int wave;
+	int points;
 };
 
