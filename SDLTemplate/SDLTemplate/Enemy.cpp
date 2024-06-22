@@ -13,7 +13,7 @@ Enemy::~Enemy()
 void Enemy::start()
 {
 	texture = loadTexture("gfx/enemy.png");
-	directionX = -1;
+	directionX = 1;
 	directionY = 1;
 	width = 0;
 	height = 0;
@@ -39,9 +39,9 @@ void Enemy::update()
 	{
 		currentDirectionChangeTime--;
 	}
-	if (currentDirectionChangeTime == 0 || y > SCREEN_HEIGHT || y < 0)
+	if (currentDirectionChangeTime == 0 || x > SCREEN_WIDTH || x < 0)
 	{
-		directionY = -directionY;
+		directionX = -directionX;
 		currentDirectionChangeTime = directionChangeTime;
 	}
 	if (currentReloadTime > 0)

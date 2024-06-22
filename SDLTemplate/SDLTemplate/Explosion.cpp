@@ -8,7 +8,6 @@ void Explosion::start()
 {
 	texture = loadTexture("gfx/explosion.png");
 	timer = 60;
-	deleteThis = false;
 	SDL_QueryTexture(texture, NULL, NULL, &width, &height);
 	explode = SoundManager::loadSound("sound/245372__quaker540__hq-explosion.ogg");
 	explode->volume = 6;

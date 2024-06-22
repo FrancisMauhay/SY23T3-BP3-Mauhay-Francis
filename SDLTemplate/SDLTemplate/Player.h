@@ -28,6 +28,7 @@ public:
     void death();
     void respawn();
     void reset();
+    void addPower();
 private:
     SDL_Texture* texture;
     Mix_Chunk* fire;
@@ -36,6 +37,8 @@ private:
     int width;
     int height;
     int speed;
+    int power;
+    int spread;
     float reloadTime;
     float currentReloadTime;
     float specialReloadTime;

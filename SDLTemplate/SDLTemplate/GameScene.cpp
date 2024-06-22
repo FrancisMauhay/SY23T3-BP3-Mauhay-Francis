@@ -15,6 +15,8 @@ GameScene::GameScene()
 	
 	enemyCurrentSpawnTime = 300;
 	enemySpawnTime = 300;
+	powerUpSpawnTime = 2000;
+	powerUpCurrentSpawnTime = 2000;
 	points = 0;
 }
 
@@ -31,6 +33,8 @@ void GameScene::start()
 	SoundManager::playMusic(1);
 	wave = 1;
 	initFonts();
+	powerUpSound = SoundManager::loadSound("sound/342749__rhodesmas__notification-01.ogg");
+	powerUpSound->volume = 20;
 }
 
 void GameScene::draw()
@@ -40,8 +44,9 @@ void GameScene::draw()
 
 	if (player->isAlive() == false)
 	{
-		drawText(SCREEN_WIDTH / 2, 600, 255, 255, 255, TEXT_CENTER, "GAME OVER!");
+		drawText(SCREEN_WIDTH / 2, SCREEN_HEIGHT/2 , 255, 255, 255, TEXT_CENTER, "GAME OVER!");
 		points = 0;
+		killCount = 0;
 	}
 }
 
@@ -62,6 +67,19 @@ void GameScene::update()
 		wave++;
 	}
 
+	if (powerUpCurrentSpawnTime > 0)
+	{
+		powerUpCurrentSpawnTime--;
+	}
+
+	if (powerUpCurrentSpawnTime == 0 || killCount == 10)
+	{
+		spawnPowerUp();
+
+		powerUpCurrentSpawnTime = powerUpSpawnTime;
+		killCount = 0;
+	}
+
 	if (wave == 10)
 	{
 		wave = 3;
@@ -79,7 +97,7 @@ void GameScene::spawn()
 		Enemy* enemy = new Enemy();
 		this->addGameObject(enemy);
 		enemy->setPlayerTarget(player);
-		enemy->setPos(SCREEN_WIDTH + 150, 300 + (rand() % 300));
+		enemy->setPos(300 + (rand() % 300),-50);
 		spawnedEnemies.push_back(enemy);
 	}
 }
@@ -89,6 +107,7 @@ void GameScene::collisionCheck()
 	for (int i = 0; i < objects.size(); i++)
 	{
 		Bullet* bullet = dynamic_cast<Bullet*>(objects[i]);
+		PowerUp* powerup = dynamic_cast<PowerUp*>(objects[i]);
 
 		if (bullet != NULL)
 		{
@@ -107,6 +126,8 @@ void GameScene::collisionCheck()
 					Explosion* explosion = new Explosion(explosionX, explosionY);
 					this->addGameObject(explosion);
 					player->death();
+					wave = 1;
+					
 					break;
 				}
 			}
@@ -131,8 +152,23 @@ void GameScene::collisionCheck()
 						currentEnemy->deleteMark();
 						bullet->deleteBulletFunc();
 						points++;
+						killCount++;
 					}
 				}
+			}
+		}
+		if (powerup != NULL)
+		{
+			int collision = checkCollision(
+				player->getPositionX(), player->getPositionY(), player->getWidth(), player->getHeight(),
+				powerup->getPositionX(), powerup->getPositionY(), powerup->getWidth(), powerup->getHeight()
+			);
+
+			if (collision == 1)
+			{
+				powerup->deleteOnCollide();
+				player->addPower();
+				SoundManager::playSound(powerUpSound);
 			}
 		}
 	}
@@ -142,7 +178,7 @@ void GameScene::enemyDelete()
 {
 	auto it = std::remove_if(spawnedEnemies.begin(), spawnedEnemies.end(), [](Enemy* enemy)
 		{
-			if (enemy->deletion() || enemy->getPositionX() < 0)
+			if (enemy->deletion() || enemy->getPositionY() > SCREEN_HEIGHT)
 			{
 				delete enemy;
 				return true;
@@ -168,4 +204,11 @@ void GameScene::targetCheck()
 			currentEnemy->resumeShoot();
 		}
 	}
+}
+
+void GameScene::spawnPowerUp()
+{
+	powerup = new PowerUp();
+	this->addGameObject(powerup);
+	powerup->setPos((rand() % SCREEN_WIDTH), -50);
 }

@@ -17,5 +17,4 @@ private:
     int width;
     int height;
     float timer;
-    bool deleteThis;
 };

@@ -14,11 +14,13 @@ Player::~Player()
 void Player::start()
 {
 	texture = loadTexture("gfx/player.png");
-	x = 100;
-	y = 300;
+	x = SCREEN_WIDTH/2;
+	y = SCREEN_HEIGHT - 200;
 	width = 0;
 	height = 0;
 	speed = 2;
+	power = 1;
+	spread = 1;
 	currentReloadTime = 0;
 	reloadTime = 20;
 	currentSpecialReloadTime = 0;
@@ -101,13 +103,31 @@ void Player::move()
 	}
 }
 
+
 void Player::shoot()
 {
 	SoundManager::playSound(fire);
-	Bullet* bullet = new Bullet(x + width ,y - 2 + height/2 ,1,0,10, Side::PLAYER_SIDE);
-	bullets.push_back(bullet);
-	getScene()->addGameObject(bullet);
+	for (int i = 0; i < power; i++)
+	{
+		float angleOffset = (i - power / 2) * (spread * M_PI / 180);
 
+		if (power > 1)
+		{
+			float directionX = cos(angleOffset);
+			float directionY = sin(angleOffset);
+			Bullet* bullet = new Bullet(x + width / 2, y, directionX - 1, directionY - 1, 10, Side::PLAYER_SIDE);
+			bullets.push_back(bullet);
+			getScene()->addGameObject(bullet);
+		}
+		else
+		{
+			float directionX = 0;
+			float directionY = sin(angleOffset);
+			Bullet* bullet = new Bullet(x + width / 2, y, directionX, directionY - 1, 10, Side::PLAYER_SIDE);
+			bullets.push_back(bullet);
+			getScene()->addGameObject(bullet);
+		}
+	}
 	currentReloadTime = reloadTime;
 }
 
@@ -129,7 +149,7 @@ void Player::bulletDelete()
 	// had asked chatgpt what is a more optimal way of memory management and it suggested using remove_if
 	auto it = std::remove_if(bullets.begin(), bullets.end(), [](Bullet* bullet)
 		{
-			if (bullet->delBul() || bullet->getPositionX() > SCREEN_WIDTH)
+			if (bullet->delBul() || bullet->getPositionY() < 0)
 			{
 				delete bullet;
 				return true;
@@ -186,6 +206,12 @@ void Player::respawn()
 
 void Player::reset()
 {
-	x = 100;
-	y = 300;
+	x = SCREEN_WIDTH / 2;
+	y = SCREEN_HEIGHT - 200;
+}
+
+void Player::addPower()
+{
+	power++;
+	spread+=5;
 }

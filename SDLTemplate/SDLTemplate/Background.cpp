@@ -6,8 +6,8 @@ void Background::start()
 	bgTexture2 = loadTexture("gfx/background.png");
 	x = 0;
 	y = 0;
-	x2 = SCREEN_WIDTH;
-	y2 = 0;
+	x2 = 0;
+	y2 = -SCREEN_HEIGHT;
 	speed = 10;
 	scale = 5;
 	SDL_QueryTexture(bgTexture, NULL, NULL, &width, &height);
@@ -22,16 +22,16 @@ void Background::draw()
 
 void Background::update()
 {
-	x -= speed;
-	x2 -= speed;
+	y += speed;
+	y2 += speed;
 
-	if (x + SCREEN_WIDTH < 0)
+	if (y + SCREEN_HEIGHT > SCREEN_HEIGHT)
 	{
-		x = SCREEN_WIDTH;
+		y = -SCREEN_HEIGHT;
 	}
-	if (x2 + SCREEN_WIDTH < 0)
+	if (y2 + SCREEN_HEIGHT > SCREEN_HEIGHT)
 	{
-		x2 = SCREEN_WIDTH;
+		y2 = -SCREEN_HEIGHT;
 	}
 }
 
@@ -40,4 +40,3 @@ void Background::setPos(int posX, int posY)
 	this->x2 = posX;
 	this->y2 = posY;
 }
-

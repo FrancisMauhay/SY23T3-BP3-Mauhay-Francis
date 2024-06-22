@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include "Background.h"
 #include "Explosion.h"
+#include "PowerUp.h"
 #include "text.h"
 #include <vector>
 
@@ -22,17 +23,23 @@ public:
 	void collisionCheck();
 	void enemyDelete();
 	void targetCheck();
+	void spawnPowerUp();
 private:
 	Player* player;
 	Background* background;
 	Background* background2;
+	PowerUp* powerup;
 	Mix_Chunk* bgMusic;
+	Mix_Chunk* powerUpSound;
 	vector<Enemy*> spawnedEnemies;
 
 	float enemySpawnTime;
 	float enemyCurrentSpawnTime;
+	float powerUpSpawnTime;
+	float powerUpCurrentSpawnTime;
 	bool gameOn;
 	int wave;
 	int points;
+	int killCount;
 };
 
