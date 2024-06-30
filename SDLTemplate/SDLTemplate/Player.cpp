@@ -188,6 +188,7 @@ bool Player::isAlive()
 void Player::death()
 {
 	alive = false;
+	power = 1;
 }
 
 void Player::respawn()

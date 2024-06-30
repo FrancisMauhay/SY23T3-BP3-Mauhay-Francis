@@ -18,6 +18,8 @@ GameScene::GameScene()
 	powerUpSpawnTime = 2000;
 	powerUpCurrentSpawnTime = 2000;
 	points = 0;
+	killCount = 0;
+	bossCount = 0;
 }
 
 GameScene::~GameScene()
@@ -47,6 +49,11 @@ void GameScene::draw()
 		drawText(SCREEN_WIDTH / 2, SCREEN_HEIGHT/2 , 255, 255, 255, TEXT_CENTER, "GAME OVER!");
 		points = 0;
 		killCount = 0;
+		powerUpCurrentSpawnTime = powerUpSpawnTime;
+		boss->death();
+		boss = nullptr;
+		bossCount = 0;
+		powerup->deleteOnCollide();
 	}
 }
 
@@ -59,12 +66,14 @@ void GameScene::update()
 		enemyCurrentSpawnTime--;
 	}
 
-	if (enemyCurrentSpawnTime == 0)
+	if (bossCount < 1)
 	{
-		spawn();
+		if (enemyCurrentSpawnTime == 0)
+		{
+			spawn();
 
-		enemyCurrentSpawnTime = enemySpawnTime;
-		wave++;
+			enemyCurrentSpawnTime = enemySpawnTime;
+		}
 	}
 
 	if (powerUpCurrentSpawnTime > 0)
@@ -72,7 +81,7 @@ void GameScene::update()
 		powerUpCurrentSpawnTime--;
 	}
 
-	if (powerUpCurrentSpawnTime == 0 || killCount == 10)
+	if (powerUpCurrentSpawnTime == 0 || killCount >= 10)
 	{
 		spawnPowerUp();
 
@@ -92,13 +101,26 @@ void GameScene::update()
 
 void GameScene::spawn()
 {
-	for (int i = 0; i < wave; i++)
+	if (wave != 7)
 	{
-		Enemy* enemy = new Enemy();
-		this->addGameObject(enemy);
-		enemy->setPlayerTarget(player);
-		enemy->setPos(300 + (rand() % 300),-50);
-		spawnedEnemies.push_back(enemy);
+		for (int i = 0; i < wave; i++)
+		{
+			Enemy* enemy = new Enemy();
+			this->addGameObject(enemy);
+			enemy->setPlayerTarget(player);
+			enemy->setPos(300 + (rand() % 300), -50);
+			spawnedEnemies.push_back(enemy);
+		}
+
+		wave++;
+	}
+	if (wave == 5)
+	{
+		boss = new Boss();
+		this->addGameObject(boss);
+		boss->setPos(SCREEN_WIDTH/2, 0);
+
+		bossCount++;
 	}
 }
 
@@ -107,7 +129,6 @@ void GameScene::collisionCheck()
 	for (int i = 0; i < objects.size(); i++)
 	{
 		Bullet* bullet = dynamic_cast<Bullet*>(objects[i]);
-		PowerUp* powerup = dynamic_cast<PowerUp*>(objects[i]);
 
 		if (bullet != NULL)
 		{
@@ -137,12 +158,12 @@ void GameScene::collisionCheck()
 				{
 					Enemy* currentEnemy = spawnedEnemies[i];
 
-					int collision = checkCollision(
+					int enemyCollision = checkCollision(
 						currentEnemy->getPositionX(), currentEnemy->getPositionY(), currentEnemy->getWidth(), currentEnemy->getHeight(),
 						bullet->getPositionX(), bullet->getPositionY(), bullet->getWidth(), bullet->getHeight()
 					);
 
-					if (collision == 1)
+					if (enemyCollision == 1)
 					{
 						float explosionX = currentEnemy->getPositionX();
 						float explosionY = currentEnemy->getPositionY();
@@ -153,6 +174,37 @@ void GameScene::collisionCheck()
 						bullet->deleteBulletFunc();
 						points++;
 						killCount++;
+					}
+				}
+
+				if (boss != nullptr)
+				{
+					int bossCollision = checkCollision(
+						boss->getPositionX(), boss->getPositionY(), boss->getWidth(), boss->getHeight(),
+						bullet->getPositionX(), bullet->getPositionY(), bullet->getWidth(), bullet->getHeight()
+					);
+
+					if (bossCollision == 1)
+					{
+						boss->deductHP();
+						cout << "Boss HIT. HP: " << boss->getHP();
+						bullet->deleteBulletFunc();
+
+						if (boss->getHP() <= 0)
+						{
+							float explosionX = boss->getPositionX();
+							float explosionY = boss->getPositionY();
+
+							Explosion* explosion = new Explosion(explosionX, explosionY);
+							this->addGameObject(explosion);
+							boss->death();
+							boss = nullptr;
+							wave++;
+							bossCount = 0;
+							points += 50;
+							killCount = 10;
+
+						}
 					}
 				}
 			}

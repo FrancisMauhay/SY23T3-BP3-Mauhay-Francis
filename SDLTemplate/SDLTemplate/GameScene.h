@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Boss.h"
 #include "Background.h"
 #include "Explosion.h"
 #include "PowerUp.h"
@@ -24,11 +25,14 @@ public:
 	void enemyDelete();
 	void targetCheck();
 	void spawnPowerUp();
+	void deleteBoss();
+
 private:
 	Player* player;
 	Background* background;
 	Background* background2;
 	PowerUp* powerup;
+	Boss* boss;
 	Mix_Chunk* bgMusic;
 	Mix_Chunk* powerUpSound;
 	vector<Enemy*> spawnedEnemies;
@@ -41,5 +45,6 @@ private:
 	int wave;
 	int points;
 	int killCount;
+	int bossCount;
 };
 
