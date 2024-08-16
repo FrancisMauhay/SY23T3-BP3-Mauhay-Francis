@@ -3,7 +3,8 @@
 GameScene::GameScene()
 {
 	// Register and add game objects on constructor
-
+	snake = new Snake();
+	this->addGameObject(snake);
 	pickupCount = 0;
 }
 
@@ -26,7 +27,7 @@ void GameScene::draw()
 void GameScene::update()
 {
 	Scene::update();
-	if (pickupCount <= 10)
+	if (pickupCount == 0)
 	{
 		PickupSpawn();
 	}
@@ -40,4 +41,17 @@ void GameScene::PickupSpawn()
 	int y = rand() % SCREEN_HEIGHT;
 	pickup->SetPos(x,y);
 	pickupCount++;
+}
+
+void GameScene::collissionsCheck()
+{
+	for (int i = 0; i < objects.size(); i++)
+	{
+		Pickup* pickup = dynamic_cast<Pickup*>(objects[i]);
+
+		if (pickup != NULL)
+		{
+
+		}
+	}
 }
